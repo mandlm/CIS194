@@ -1,4 +1,4 @@
-
+module CreditCard where
 
 lastDigit :: Integer -> Integer
 lastDigit n = n `mod` 10
