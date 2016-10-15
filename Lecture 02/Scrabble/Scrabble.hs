@@ -39,4 +39,16 @@ wordFitsTemplate :: Template -> Hand -> String -> Bool
 wordFitsTemplate template hand word = let matchWord = removeTemplateChars word template in 
   formableBy matchWord hand && wordMatchesTemplate word template
 
+wordsFromListFittingTemplate :: Template -> Hand -> [String] -> [String]
+wordsFromListFittingTemplate _ _ [] = []
+wordsFromListFittingTemplate template hand (x:xs)
+  | wordFitsTemplate template hand x = x : wordsFromListFittingTemplate template hand xs
+  | otherwise = wordsFromListFittingTemplate template hand xs
+
+wordsFittingTemplate :: Template -> Hand -> [String]
+wordsFittingTemplate template hand = wordsFromListFittingTemplate template hand allWords
+
+
+
+
 
