@@ -3,12 +3,15 @@ module Scratch where
 neg :: Integer -> Integer
 neg x = (-x)
 
-sumTo20 :: [Integer] -> Integer
-sumTo20 nums = sumTo20Acc 0 nums
+sumTo :: Integer -> [Integer] -> Integer
+sumTo n nums = sumToAcc 0 n nums
 
-sumTo20Acc :: Integer -> [Integer] -> Integer
-sumTo20Acc acc [] = acc
-sumTo20Acc acc (x:xs) 
-  | acc >= 20 = acc
-  | otherwise = sumTo20Acc (acc + x) xs
+sumTo20 :: [Integer] -> Integer
+sumTo20 nums = sumToAcc 0 20 nums
+
+sumToAcc :: Integer -> Integer -> [Integer] -> Integer
+sumToAcc acc _ [] = acc
+sumToAcc acc n (x:xs) 
+  | acc >= n = acc
+  | otherwise = sumToAcc (acc + x) n xs
 
