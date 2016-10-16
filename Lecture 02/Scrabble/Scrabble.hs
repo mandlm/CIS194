@@ -69,4 +69,26 @@ bestWords (x:xs)
   where 
     maxWordValue = bestScrabbleWordValue (x:xs)
 
+type STemplate = String
+
+scrabbleValueTemplateAcc :: Int -> Int -> STemplate -> String -> Int
+scrabbleValueTemplateAcc sum mult [] [] = sum * mult
+scrabbleValueTemplateAcc sum mult (t:ts) (w:ws)
+  | t == '?' = scrabbleValueTemplateAcc (sum + charValue) mult ts ws
+  | t == 'D' = scrabbleValueTemplateAcc (sum + (charValue * 2)) mult ts ws
+  | t == 'T' = scrabbleValueTemplateAcc (sum + (charValue * 3)) mult ts ws
+  | t == '2' = scrabbleValueTemplateAcc (sum + charValue) (mult * 2) ts ws
+  | t == '3' = scrabbleValueTemplateAcc (sum + charValue) (mult * 3) ts ws
+  | otherwise = scrabbleValueTemplateAcc (sum + charValue) mult ts ws
+  where charValue = scrabbleValue w
+
+scrabbleValueTemplate :: STemplate -> String -> Int
+scrabbleValueTemplate template word = scrabbleValueTemplateAcc 0 1 template word
+
+
+
+
+
+
+
 
