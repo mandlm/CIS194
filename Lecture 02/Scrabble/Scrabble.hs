@@ -48,7 +48,25 @@ wordsFromListFittingTemplate template hand (x:xs)
 wordsFittingTemplate :: Template -> Hand -> [String]
 wordsFittingTemplate template hand = wordsFromListFittingTemplate template hand allWords
 
+scrabbleValueWord :: String -> Int
+scrabbleValueWord [] = 0
+scrabbleValueWord (x:xs) = scrabbleValue x + scrabbleValueWord xs
 
+bestScrabbleWordValueAcc :: [String] -> Int -> Int
+bestScrabbleWordValueAcc [] acc = acc
+bestScrabbleWordValueAcc (x:xs) acc = let currentWordValue = scrabbleValueWord x in
+  let bestValue = max currentWordValue acc in 
+    bestScrabbleWordValueAcc xs bestValue
 
+bestScrabbleWordValue :: [String] -> Int
+bestScrabbleWordValue words = bestScrabbleWordValueAcc words 0
+
+bestWords :: [String] -> [String]
+bestWords [] = []
+bestWords (x:xs)
+  | scrabbleValueWord(x) == maxWordValue = x : bestWords xs
+  | otherwise = bestWords xs
+  where 
+    maxWordValue = bestScrabbleWordValue (x:xs)
 
 
