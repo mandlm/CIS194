@@ -85,10 +85,3 @@ scrabbleValueTemplateAcc sum mult (t:ts) (w:ws)
 scrabbleValueTemplate :: STemplate -> String -> Int
 scrabbleValueTemplate template word = scrabbleValueTemplateAcc 0 1 template word
 
-
-
-
-
-
-
-
