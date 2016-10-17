@@ -54,9 +54,10 @@ scrabbleValueWord (x:xs) = scrabbleValue x + scrabbleValueWord xs
 
 bestScrabbleWordValueAcc :: [String] -> Int -> Int
 bestScrabbleWordValueAcc [] acc = acc
-bestScrabbleWordValueAcc (x:xs) acc = let currentWordValue = scrabbleValueWord x in
-  let bestValue = max currentWordValue acc in 
-    bestScrabbleWordValueAcc xs bestValue
+bestScrabbleWordValueAcc (x:xs) acc = 
+  let currentWordValue = scrabbleValueWord x in
+    let bestValue = max currentWordValue acc in 
+      bestScrabbleWordValueAcc xs bestValue
 
 bestScrabbleWordValue :: [String] -> Int
 bestScrabbleWordValue words = bestScrabbleWordValueAcc words 0
